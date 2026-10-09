@@ -8,6 +8,7 @@ async function api(path, opts) {
   if (STATIC) {
     if (!staticData) staticData = await (await fetch("data.json", { cache: "no-store" })).json();
     if (path.startsWith("/api/state")) return staticData.state;
+    if (path.startsWith("/api/news")) return staticData.news || { items: [] };
     if (path.startsWith("/api/changes")) {
       const py = decodeURIComponent((path.match(/pyeong=([^&]+)/) || [])[1] || "");
       return staticData.changes[py] || { available: false, reason: "no-data" };
@@ -144,10 +145,25 @@ function fmtMan(man) {
   return rest.toLocaleString();
 }
 
+// 비교 단지 체크박스 — 켰을 때만 비교 계열을 그린다(선택은 이 브라우저에 기억).
+let lastRealChart = null;
+const CMP_KEY = "showCompare";
+function cmpOn() { try { return localStorage.getItem(CMP_KEY) === "1"; } catch { return false; } }
+$("cmp-check").addEventListener("change", (e) => {
+  try { localStorage.setItem(CMP_KEY, e.target.checked ? "1" : "0"); } catch {}
+  renderRealChart(lastRealChart);
+});
+
 function renderRealChart(rc) {
+  lastRealChart = rc;
   const wrap = $("real-wrap"), note = $("real-note"), legend = $("real-legend"), tv = $("real-table-view");
   const dates = (rc && rc.dates) || [];
-  const series = (rc && rc.series) || [];
+  const allSeries = (rc && rc.series) || [];
+  const cmpNames = [...new Set(allSeries.filter((s) => s.compare).map((s) => s.complex))];
+  $("cmp-toggle").hidden = !cmpNames.length;
+  $("cmp-name").textContent = cmpNames.map((n) => n.replace(/^동탄역/, "")).join(", ");
+  $("cmp-check").checked = cmpOn();
+  const series = cmpOn() ? allSeries : allSeries.filter((s) => !s.compare);
   const hasAny = series.some((s) => s.data.some((v) => v !== null));
   if (!dates.length || !hasAny) {
     wrap.innerHTML = `<p class="empty">실거래 기록이 쌓이면 그래프가 표시됩니다.</p>`;
@@ -428,8 +444,33 @@ function renderDeals(rd) {
   top.className = "deals-today";
 }
 
+// ---------- 동탄트램 최신 기사 ----------
+function fmtNewsTime(iso) {
+  const d = new Date(iso);
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getMonth() + 1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+function renderNews(n) {
+  const box = $("news-list"), meta = $("news-meta");
+  const items = (n && n.items) || [];
+  const nToday = items.filter((x) => x.isToday).length;
+  meta.textContent = n && n.fetchedAt ? `${nToday ? `오늘 ${nToday}건 · ` : ""}${fmtNewsTime(n.fetchedAt)} 기준` : "";
+  if (!items.length) {
+    box.innerHTML = `<p class="empty-sm">${n && n.error ? "기사를 불러오지 못했습니다." : "관련 기사가 없습니다."}</p>`;
+    return;
+  }
+  box.innerHTML = (nToday ? "" : `<p class="chg-note">오늘 나온 기사는 없어 최신 기사를 보여줍니다.</p>`) +
+    items.map((x) =>
+      `<a class="news-item" href="${esc(x.link)}" target="_blank" rel="noopener">` +
+      `<div class="news-title">${x.isToday ? `<span class="tag today">오늘</span> ` : ""}${esc(x.title)}</div>` +
+      `<div class="news-meta">${esc(x.source)} · ${fmtNewsTime(x.time)}</div></a>`
+    ).join("");
+}
+
 async function load() {
   render(await api("/api/state"));
+  try { renderNews(await api("/api/news")); }
+  catch { renderNews(null); }
 }
 
 // ---------- 증감 매물 목록 모달 ----------

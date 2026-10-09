@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { execFile } = require("child_process");
 const { fetchSaleAndReal, aggregateByPyeong } = require("./naver");
+const { fetchTramNews } = require("./news");
 
 const ROOT = __dirname;
 const HISTORY_FILE = path.join(ROOT, "history.json");
@@ -383,6 +384,18 @@ function computeChanges(pyeong) {
   return { available: true, todayDate: todayK, prevDate: prevK, pyeong: py, added, sold, relisted, current: todayList, prevList };
 }
 
+// ---------- 동탄트램 최신 기사 (30분 캐시) ----------
+let newsCache = null;
+async function getNews() {
+  if (newsCache && Date.now() - Date.parse(newsCache.fetchedAt) < 30 * 60 * 1000) return newsCache;
+  try { newsCache = await fetchTramNews(); }
+  catch (e) {
+    console.log("  [뉴스] 수집 실패:", e.message);
+    if (!newsCache) return { fetchedAt: null, items: [], error: e.message };
+  }
+  return newsCache;
+}
+
 // ---------- GitHub Pages 게시 (읽기 전용 정적 사이트) ----------
 // docs/ 에 화면 파일을 복사하고, 화면이 쓰는 API 응답(state, 평형별 changes)을 data.json 으로 저장한 뒤
 // docs/ 만 커밋·푸시한다. 원본 history.json 은 올리지 않는다.
@@ -404,7 +417,8 @@ async function publishPages() {
     const state = buildState();
     const changes = {};
     for (const r of state.rows) changes[r.pyeong] = { complexNo: history.complexNo, ...computeChanges(r.pyeong) };
-    writeJson(path.join(DOCS, "data.json"), { generatedAt: new Date().toISOString(), state, changes });
+    const news = await getNews();
+    writeJson(path.join(DOCS, "data.json"), { generatedAt: new Date().toISOString(), state, changes, news });
     for (const f of ["app.js", "style.css"]) fs.copyFileSync(path.join(ROOT, f), path.join(DOCS, f));
     const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8")
       .replace(`<script src="app.js"></script>`, `<script>window.STATIC_MODE = true;</script>
@@ -486,6 +500,11 @@ const server = http.createServer(async (req, res) => {
     const cfg = loadConfig();
     writeJson(CONFIG_FILE, { ...cfg, complexNo: history.complexNo, complexName: history.complexName });
     return send(res, 200, buildState());
+  }
+
+  // 동탄트램 최신 기사
+  if (url === "/api/news" && req.method === "GET") {
+    return send(res, 200, await getNews());
   }
 
   // GitHub Pages 수동 게시 (로컬에서만)
