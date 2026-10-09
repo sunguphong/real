@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>매물 추적기 · 동탄</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">🏠 매물 추적기</div>
+      <span class="badge">매매 전용 · 평형별 일일 증감</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 단지 설정 -->
+    <section class="card setup">
+      <div class="setup-row">
+        <div class="field">
+          <label for="complexNo">네이버 단지 번호 (complexNo)</label>
+          <input type="text" id="complexNo" placeholder="예: 12345 — new.land.naver.com/complexes/숫자" />
+        </div>
+        <div class="field grow">
+          <label for="complexName">단지 이름 (표시용)</label>
+          <input type="text" id="complexName" placeholder="동탄역포레너스" />
+        </div>
+        <button id="save-config" class="btn ghost">저장</button>
+      </div>
+      <p class="hint">
+        단지 번호 찾기: <b>new.land.naver.com</b> 접속 → 단지 검색 → 주소창의
+        <code>/complexes/<b>숫자</b></code> 가 번호입니다.
+      </p>
+    </section>
+
+    <!-- 요약 + 갱신 -->
+    <section class="summary">
+      <div>
+        <h1 id="title">단지를 설정해 주세요</h1>
+        <p class="sub" id="subtitle">매매 매물만 집계합니다.</p>
+      </div>
+      <button id="refresh" class="btn primary">📥 오늘 매물 갱신</button>
+    </section>
+
+    <!-- 상태 메시지 -->
+    <div id="status" class="status" hidden></div>
+
+    <!-- 추이 차트 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>매물 추이 그래프</h2>
+        <span class="dates" id="chart-legend"></span>
+      </div>
+      <div id="chart-wrap" class="chart-wrap">
+        <p class="empty" id="chart-empty">데이터가 쌓이면 그래프가 표시됩니다.</p>
+      </div>
+      <p class="hint" id="chart-note"></p>
+    </section>
+
+    <!-- 실거래 가격추이 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>실거래 가격추이</h2>
+        <span class="dates" id="real-legend"></span>
+      </div>
+      <div id="real-wrap" class="chart-wrap" tabindex="0" aria-label="실거래 평균가 추이 그래프. 좌우 화살표로 날짜를 이동합니다.">
+        <p class="empty" id="real-empty">실거래 기록이 쌓이면 그래프가 표시됩니다.</p>
+      </div>
+      <p class="hint" id="real-note"></p>
+      <details class="table-view" id="real-table-view" hidden>
+        <summary>값 표로 보기</summary>
+        <div class="table-wrap" id="real-table"></div>
+      </details>
+    </section>
+
+    <!-- 비교 표 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>평형별 매매 매물 증감</h2>
+        <span class="dates" id="dates"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>평형</th>
+              <th class="num" id="col-prev">이전</th>
+              <th class="num" id="col-today">오늘</th>
+              <th class="num">증감</th>
+              <th class="num">평균호가</th>
+              <th class="num">실거래 평균가<br><span class="th-sub">최근 10일</span></th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr>
+              <td colspan="6" class="empty">아직 데이터가 없습니다. 단지 번호를 넣고 “오늘 매물 갱신”을 눌러주세요.</td>
+            </tr>
+          </tbody>
+          <tfoot id="tfoot" hidden>
+            <tr>
+              <td>합계</td>
+              <td class="num" id="sum-prev">–</td>
+              <td class="num" id="sum-today">–</td>
+              <td class="num" id="sum-diff">–</td>
+              <td class="num"></td>
+              <td class="num"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- 실거래 목록 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>실거래 목록</h2>
+        <span class="dates" id="deals-dates"></span>
+      </div>
+      <div id="deals-today" class="deals-today" hidden></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>거래일</th>
+              <th>평형</th>
+              <th class="num">층</th>
+              <th class="num">거래가</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="deals-body">
+            <tr><td colspan="5" class="empty">실거래 목록은 다음 “오늘 매물 갱신” 때부터 표시됩니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hint">거래일 기준 최근 60일 매매 실거래(국토부 신고분, 네이버 제공)입니다. 실거래는 계약 후 최대 30일 내 신고되므로 <b>신규 신고</b>는 직전 수집 이후 새로 공개된 거래입니다.</p>
+    </section>
+
+    <!-- 기록 이력 -->
+    <section class="card">
+      <h2>수집 이력</h2>
+      <div id="history-list" class="history">기록이 없습니다.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>데이터 출처: 네이버 부동산(비공식). 매물 개수는 수집 시점 기준이며 실제와 다를 수 있습니다.</p>
+      <p class="copy">날짜별 증감은 “갱신”을 누른 날부터 누적됩니다.</p>
+    </div>
+  </footer>
+
+  <!-- 증감 매물 목록 모달 -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="닫기">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

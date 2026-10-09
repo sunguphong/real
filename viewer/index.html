@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동탄역포레너스 매물 추이</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">🏠 매물 추적기</div>
+      <span class="badge">매매 전용 · 평형별 일일 증감</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="summary">
+      <div>
+        <h1 id="title">동탄역포레너스</h1>
+        <p class="sub" id="subtitle">매매 매물 기준 · <span id="updated"></span></p>
+      </div>
+    </section>
+
+    <div id="status" class="status" hidden></div>
+
+    <!-- 추이 차트 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>매물 추이 그래프</h2>
+        <span class="dates" id="chart-legend"></span>
+      </div>
+      <div id="chart-wrap" class="chart-wrap">
+        <p class="empty" id="chart-empty">데이터를 불러오는 중…</p>
+      </div>
+      <p class="hint" id="chart-note"></p>
+    </section>
+
+    <!-- 비교 표 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>평형별 매매 매물 증감</h2>
+        <span class="dates" id="dates"></span>
+      </div>
+      <div class="table-wrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>평형</th>
+              <th class="num" id="col-prev">이전</th>
+              <th class="num" id="col-today">오늘</th>
+              <th class="num">증감</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr><td colspan="4" class="empty">데이터를 불러오는 중…</td></tr>
+          </tbody>
+          <tfoot id="tfoot" hidden>
+            <tr>
+              <td>합계</td>
+              <td class="num" id="sum-prev">–</td>
+              <td class="num" id="sum-today">–</td>
+              <td class="num" id="sum-diff">–</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <!-- 기록 이력 -->
+    <section class="card">
+      <h2>수집 이력</h2>
+      <div id="history-list" class="history">기록이 없습니다.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>데이터 출처: 네이버 부동산(비공식). 매물 개수는 수집 시점 기준이며 실제와 다를 수 있습니다.</p>
+      <p class="copy">증감 숫자(▲▼)를 누르면 변동 매물 목록을 볼 수 있습니다.</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="닫기">✕</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
