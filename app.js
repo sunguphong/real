@@ -404,9 +404,32 @@ function render(state) {
 }
 
 // ---------- 실거래 목록 ----------
+// 평형 선택 버튼 — 목록에 있는 평형으로 만든다(선택은 이 브라우저에 기억).
+let lastDeals = null;
+const DEAL_PY_KEY = "dealPyeong";
+function dealPy() { try { return localStorage.getItem(DEAL_PY_KEY) || "all"; } catch { return "all"; } }
+$("deals-filter").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-py]");
+  if (!b) return;
+  try { localStorage.setItem(DEAL_PY_KEY, b.dataset.py); } catch {}
+  renderDeals(lastDeals);
+});
+
 function renderDeals(rd) {
+  lastDeals = rd;
   const body = $("deals-body"), top = $("deals-today"), dl = $("deals-dates");
-  const list = (rd && rd.list) || [];
+  const all = (rd && rd.list) || [];
+  const pys = [...new Set(all.map((x) => x.pyeong))].sort((a, b) => a - b);
+  let sel = dealPy();
+  if (sel !== "all" && !pys.includes(Number(sel))) sel = "all";
+  const fb = $("deals-filter");
+  fb.hidden = pys.length < 2;
+  fb.innerHTML = [["all", "전체"], ...pys.map((p) => [String(p), `${p}평`])]
+    .map(([v, t]) => {
+      const n = v === "all" ? all.length : all.filter((x) => String(x.pyeong) === v).length;
+      return `<button type="button" data-py="${v}" aria-pressed="${v === sel}">${t} <span class="seg-n">${n}</span></button>`;
+    }).join("");
+  const list = sel === "all" ? all : all.filter((x) => String(x.pyeong) === sel);
   dl.textContent = rd && rd.date ? `${rd.date} 수집` : "";
   if (!rd || !rd.date) {
     body.innerHTML = `<tr><td colspan="5" class="empty">실거래 목록은 다음 “오늘 매물 갱신” 때부터 표시됩니다.</td></tr>`;
@@ -414,7 +437,7 @@ function renderDeals(rd) {
     return;
   }
   if (!list.length) {
-    body.innerHTML = `<tr><td colspan="5" class="empty">최근 60일 실거래가 없습니다.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="5" class="empty">최근 60일 ${sel === "all" ? "" : sel + "평 "}실거래가 없습니다.</td></tr>`;
   } else {
     body.innerHTML = list.map((x) => {
       const tags = [

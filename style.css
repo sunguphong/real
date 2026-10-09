@@ -207,3 +207,11 @@ td.tags { white-space: nowrap; text-align: right; }
 .news-item:hover .news-title { color: #9ecbff; }
 .news-title { font-size: 14px; font-weight: 600; line-height: 1.45; }
 .news-meta { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+/* 실거래 목록 평형 선택 */
+.seg { display: inline-flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 3px; margin-bottom: 10px; }
+.seg[hidden] { display: none; }
+.seg button { background: none; border: none; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 7px; cursor: pointer; }
+.seg button:hover { color: var(--text); }
+.seg button[aria-pressed="true"] { background: var(--primary); color: #fff; }
+.seg-n { font-weight: 400; opacity: .75; font-size: 12px; }
