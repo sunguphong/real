@@ -4,6 +4,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { execFile } = require("child_process");
 const { fetchSaleAndReal, aggregateByPyeong } = require("./naver");
 
 const ROOT = __dirname;
@@ -382,6 +383,53 @@ function computeChanges(pyeong) {
   return { available: true, todayDate: todayK, prevDate: prevK, pyeong: py, added, sold, relisted, current: todayList, prevList };
 }
 
+// ---------- GitHub Pages 게시 (읽기 전용 정적 사이트) ----------
+// docs/ 에 화면 파일을 복사하고, 화면이 쓰는 API 응답(state, 평형별 changes)을 data.json 으로 저장한 뒤
+// docs/ 만 커밋·푸시한다. 원본 history.json 은 올리지 않는다.
+const DOCS = path.join(ROOT, "docs");
+function git(args) {
+  return new Promise((resolve, reject) => {
+    execFile("git", args, { cwd: ROOT }, (err, stdout, stderr) => {
+      if (err) { err.message += " " + String(stderr || "").trim(); return reject(err); }
+      resolve(String(stdout));
+    });
+  });
+}
+let publishing = null;
+async function publishPages() {
+  if (publishing) return publishing; // 동시에 두 번 돌지 않게
+  publishing = (async () => {
+    fs.mkdirSync(DOCS, { recursive: true });
+    const history = loadHistory();
+    const state = buildState();
+    const changes = {};
+    for (const r of state.rows) changes[r.pyeong] = { complexNo: history.complexNo, ...computeChanges(r.pyeong) };
+    writeJson(path.join(DOCS, "data.json"), { generatedAt: new Date().toISOString(), state, changes });
+    for (const f of ["app.js", "style.css"]) fs.copyFileSync(path.join(ROOT, f), path.join(DOCS, f));
+    const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8")
+      .replace(`<script src="app.js"></script>`, `<script>window.STATIC_MODE = true;</script>
+  <script src="app.js"></script>`);
+    fs.writeFileSync(path.join(DOCS, "index.html"), html, "utf8");
+    fs.writeFileSync(path.join(DOCS, ".nojekyll"), "");
+
+    await git(["add", "--", "docs"]);
+    try { await git(["diff", "--cached", "--quiet", "--", "docs"]); return { pushed: false }; } // 변경 없음
+    catch { /* 변경 있음 → 커밋 */ }
+    await git(["commit", "-m", `데이터 갱신 ${state.todayDate || todayStr()}`, "--", "docs"]);
+    await git(["push", "origin", "HEAD"]);
+    return { pushed: true };
+  })();
+  try { return await publishing; } finally { publishing = null; }
+}
+async function publishSafe(tag) {
+  try {
+    const r = await publishPages();
+    console.log(`  [게시] ${tag}: ${r.pushed ? "GitHub Pages 푸시 완료" : "변경 없음"}`);
+  } catch (e) {
+    console.log(`  [게시] ${tag} 실패: ${e.message}`);
+  }
+}
+
 // ---------- Basic Auth ----------
 // config.json 의 auth:{user,pass} 가 있으면 모든 요청에 인증을 요구한다.
 function loadAuth() {
@@ -440,10 +488,21 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, buildState());
   }
 
+  // GitHub Pages 수동 게시 (로컬에서만)
+  if (url === "/api/publish" && req.method === "POST") {
+    const ra = req.socket.remoteAddress || "";
+    if (!/^(::1|127.0.0.1|::ffff:127.0.0.1)$/.test(ra) || req.headers["x-forwarded-for"]) {
+      return send(res, 403, { error: "로컬에서만 게시할 수 있습니다." });
+    }
+    try { return send(res, 200, await publishPages()); }
+    catch (e) { return send(res, 500, { error: e.message }); }
+  }
+
   // 오늘 매물 갱신 (네이버 수집 → 스냅샷 저장)
   if (url === "/api/refresh" && req.method === "POST") {
     try {
       const r = await doRefresh();
+      if (!r.warning) publishSafe("수동 갱신"); // 응답을 기다리게 하지 않는다
       if (r.warning) return send(res, 200, { warning: r.warning, ...buildState() });
       return send(res, 200, { ok: true, fetched: r.fetched, ...buildState() });
     } catch (e) {
@@ -466,6 +525,7 @@ async function maybeAutoRefresh() {
   try {
     const r = await doRefresh();
     lastAutoYmd = t;
+    if (!r.warning) await publishSafe("자동 갱신");
     console.log(`  [자동] ${t} 갱신 완료 — 매매 ${r.fetched ?? 0}건`);
   } catch (e) {
     console.log(`  [자동] ${t} 갱신 실패: ${e.message}`);

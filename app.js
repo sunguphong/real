@@ -1,7 +1,19 @@
 // 프론트엔드 — 서버 API와 통신해 평형별 매매 매물 증감을 표시
 const $ = (id) => document.getElementById(id);
 
+// 읽기 전용 정적 모드(GitHub Pages) — 서버 API 대신 data.json 에서 같은 응답을 꺼낸다.
+const STATIC = !!window.STATIC_MODE;
+let staticData = null;
 async function api(path, opts) {
+  if (STATIC) {
+    if (!staticData) staticData = await (await fetch("data.json", { cache: "no-store" })).json();
+    if (path.startsWith("/api/state")) return staticData.state;
+    if (path.startsWith("/api/changes")) {
+      const py = decodeURIComponent((path.match(/pyeong=([^&]+)/) || [])[1] || "");
+      return staticData.changes[py] || { available: false, reason: "no-data" };
+    }
+    throw new Error("읽기 전용 페이지입니다.");
+  }
   const res = await fetch(path, opts);
   return res.json();
 }
@@ -565,4 +577,14 @@ $("refresh").addEventListener("click", async () => {
   }
 });
 
-load();
+if (STATIC) {
+  // 설정·수집은 PC 서버에서만 — 정적 페이지에서는 숨긴다
+  document.querySelector(".setup").style.display = "none";
+  $("refresh").style.display = "none";
+  load().then(() => {
+    const t = staticData && staticData.generatedAt ? new Date(staticData.generatedAt).toLocaleString("ko-KR") : "";
+    $("subtitle").textContent = `매매 매물만 집계합니다. 매일 자동 갱신 · 마지막 갱신 ${t}`;
+  });
+} else {
+  load();
+}
