@@ -415,6 +415,30 @@ $("deals-filter").addEventListener("click", (e) => {
   renderDeals(lastDeals);
 });
 
+// 같은 평형의 직전 거래일(더 이른 날짜) 대비 증감 — 그날 거래가 여러 건이면 평균과 비교한다. 해제 건은 제외.
+function dealDiffs(all) {
+  const out = new Map();
+  const valid = all.filter((x) => !x.canceled);
+  for (const x of all) {
+    const older = valid.filter((y) => y.pyeong === x.pyeong && y.date < x.date);
+    if (!older.length) continue;
+    const pd = older.reduce((m, y) => (y.date > m ? y.date : m), "");
+    const same = older.filter((y) => y.date === pd);
+    const avg = same.reduce((a, y) => a + y.price, 0) / same.length;
+    out.set(x, { diff: x.price - avg, prevDate: pd, prevPrice: avg, n: same.length });
+  }
+  return out;
+}
+function fmtDiff(d) {
+  if (!d) return `<span class="pdiff same">–</span>`;
+  const v = Math.round(d.diff / 100) * 100; // 100만원 단위
+  const tip = `직전 거래 ${d.prevDate} ${fmtMan(d.prevPrice)}${d.n > 1 ? ` (${d.n}건 평균)` : ""} 대비`;
+  if (!v) return `<span class="pdiff same" title="${esc(tip)}">보합</span>`;
+  const amt = fmtMan(Math.abs(v)) + (Math.abs(v) < 10000 ? "만" : "");
+  return `<span class="pdiff ${v > 0 ? "up" : "down"}" title="${esc(tip)}">${v > 0 ? "▲" : "▼"} ${amt}</span>` +
+    `<span class="pdiff-sub">${esc(d.prevDate.slice(5))} 대비</span>`;
+}
+
 function renderDeals(rd) {
   lastDeals = rd;
   const body = $("deals-body"), top = $("deals-today"), dl = $("deals-dates");
@@ -432,13 +456,14 @@ function renderDeals(rd) {
   const list = sel === "all" ? all : all.filter((x) => String(x.pyeong) === sel);
   dl.textContent = rd && rd.date ? `${rd.date} 수집` : "";
   if (!rd || !rd.date) {
-    body.innerHTML = `<tr><td colspan="5" class="empty">실거래 목록은 다음 “오늘 매물 갱신” 때부터 표시됩니다.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="6" class="empty">실거래 목록은 다음 “오늘 매물 갱신” 때부터 표시됩니다.</td></tr>`;
     top.hidden = true;
     return;
   }
   if (!list.length) {
-    body.innerHTML = `<tr><td colspan="5" class="empty">최근 60일 ${sel === "all" ? "" : sel + "평 "}실거래가 없습니다.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="6" class="empty">최근 60일 ${sel === "all" ? "" : sel + "평 "}실거래가 없습니다.</td></tr>`;
   } else {
+    const diffs = dealDiffs(all);
     body.innerHTML = list.map((x) => {
       const tags = [
         x.isToday ? `<span class="tag today">오늘 거래</span>` : "",
@@ -450,6 +475,7 @@ function renderDeals(rd) {
         `<td><b>${esc(x.pyeong)}평</b> <span class="sub-label">${esc(x.excl ? `전용 ${x.excl}㎡` : x.label)}</span></td>` +
         `<td class="num">${x.floor ? esc(x.floor) + "층" : "–"}</td>` +
         `<td class="num price real">${esc(x.priceText)}</td>` +
+        `<td class="num">${x.canceled ? "–" : fmtDiff(diffs.get(x))}</td>` +
         `<td class="tags">${tags}</td></tr>`;
     }).join("");
   }
