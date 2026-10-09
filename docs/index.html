@@ -64,6 +64,9 @@
     <section class="card">
       <div class="table-head">
         <h2>실거래 가격추이</h2>
+        <label class="cmp-toggle" id="cmp-toggle" hidden><input type="checkbox" id="cmp-check" /> <span id="cmp-name">비교 단지</span> 비교</label>
+      </div>
+      <div class="legend-row">
         <span class="dates" id="real-legend"></span>
       </div>
       <div id="real-wrap" class="chart-wrap" tabindex="0" aria-label="실거래 평균가 추이 그래프. 좌우 화살표로 날짜를 이동합니다.">
@@ -143,6 +146,14 @@
     <section class="card">
       <h2>수집 이력</h2>
       <div id="history-list" class="history">기록이 없습니다.</div>
+    </section>
+    <!-- 동탄트램 최신 기사 -->
+    <section class="card">
+      <div class="table-head">
+        <h2>동탄트램 최신 기사</h2>
+        <span class="dates" id="news-meta"></span>
+      </div>
+      <div id="news-list" class="news">불러오는 중…</div>
     </section>
   </main>
 

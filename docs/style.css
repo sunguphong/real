@@ -193,3 +193,17 @@ td.tags { white-space: nowrap; text-align: right; }
 .tag.new { background: #1e3a5f; color: #9ecbff; }
 .tag.cancel { background: var(--surface-2); color: var(--muted); }
 
+
+/* 비교 단지 체크박스 */
+.cmp-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); cursor: pointer; user-select: none; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; }
+.cmp-toggle[hidden] { display: none; }
+.cmp-toggle input { accent-color: var(--primary); width: 15px; height: 15px; margin: 0; }
+.legend-row { margin: -2px 0 8px; }
+.legend-row .dates .lg:first-child { margin-left: 0; }
+
+/* 동탄트램 기사 */
+.news-item { display: block; text-decoration: none; color: var(--text); padding: 10px 0; border-bottom: 1px solid var(--border); }
+.news-item:last-child { border-bottom: none; }
+.news-item:hover .news-title { color: #9ecbff; }
+.news-title { font-size: 14px; font-weight: 600; line-height: 1.45; }
+.news-meta { color: var(--muted); font-size: 12px; margin-top: 3px; }

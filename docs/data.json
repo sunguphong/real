@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T06:42:17.042Z",
+  "generatedAt": "2026-10-09T06:57:01.327Z",
   "state": {
     "complexNo": "110837",
     "complexName": "동탄역포레너스",
@@ -5670,5 +5670,81 @@
         }
       ]
     }
+  },
+  "news": {
+    "fetchedAt": "2026-10-09T06:56:54.741Z",
+    "today": "2026-10-09",
+    "items": [
+      {
+        "title": "화성특례시, 동탄트램 기술제안서 심의 적격, 계약절차 돌입",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1Ua1VtZWliTFFOYWIxVkFqNk9UX0c0Y2RneGMxY3NrOXJGZ2E0TWhVU0s2dWVGM05sblFSRVpmSEtyTzhIYzVHcnpCNHV2WDhYcFZKUnBsdHZlU0ZiY29VUTdhUUZRWjd1?oc=5",
+        "source": "경기시사투데이",
+        "time": "2026-10-09T03:34:35.000Z",
+        "isToday": true
+      },
+      {
+        "title": "화성특례시, 동탄트램 '첫 삽' 임박… 기술제안서 심의 통과, 이달 착공",
+        "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE8yR2M0d0xEVzFmblNZalJ1LU5ybV9xVmdfNzlfSFIyVzI5c0FtUnBnZFkzcURWNklKM0NieVo0eC1tVVNsMzN5a1hmemZJNmxFZkRUMUlfams1RXVOYm45SmtHaWI3MjIycHpPQg?oc=5",
+        "source": "경기타임스 e",
+        "time": "2026-10-09T02:26:41.000Z",
+        "isToday": true
+      },
+      {
+        "title": "31.55㎞ 동탄 트램 첫 삽 가시권…화성시, 10월 우선공사 착수",
+        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9aU0FWZm84ckE2S2x1dld3S25kelc2YUJlMFBhNDNESXBDcEJyQ3VwQ0RSSlAxRmx4SHpnNzk3cDBlNFNqUkVwWERzenhNNENscDl0OUYzb19OQVJxVGE2N1BFZw?oc=5",
+        "source": "에너지경제신문",
+        "time": "2026-10-09T01:35:07.000Z",
+        "isToday": true
+      },
+      {
+        "title": "화성특례시, 동탄트램 기술제안서 심의 통과…우선시공분 이달 착공",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9EdUxHTmdYSE0xOEJKb3FuOEVuTFpiczJ5Vjlqbm9udUNHVG92VEp1akg5OVVobkdlRk9VZng5Q0ZXSUQyeEh6N3JkdVU3aUJvai14dG9YUFpLNEUzQnNyVXBMOWVDSU40eWUw?oc=5",
+        "source": "프레시안",
+        "time": "2026-10-09T01:10:22.000Z",
+        "isToday": true
+      },
+      {
+        "title": "정명근“화성시 ‘동탄 트램’ 이달 우선시공분 착공”",
+        "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1WUU1GOTFkdjYxRDZ0NjBTand6LUhWNklHQVMyTFNQbUpUeGRWSkhwWmFsTlk0bF9kbzNDZU9wYU1WbjdvTnVKUWpnZUs1VWhXa3p5LTRRYVA?oc=5",
+        "source": "스포츠서울",
+        "time": "2026-10-09T01:05:59.000Z",
+        "isToday": true
+      },
+      {
+        "title": "정명근 화성시장 “동탄트램 실제 공사 단계”…10월 우선시공분 착공 추진",
+        "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1BSEpJWV9DZVE1Nzl5X1N1R0t2QzZSZnNVRlBTWGhYSzhsb1c1ZUZTU0hMSkNZZHQ1MG5lRjBMTlFVaXJzTDBXSk04MEdkUEdLcmFZQi1pV0FobWgwU1BqQzBtaktSLU9fZzROQm4xZlZDN09sY2V4ZUtZQVc?oc=5",
+        "source": "비욘드포스트",
+        "time": "2026-10-09T00:26:38.000Z",
+        "isToday": true
+      },
+      {
+        "title": "‘화성 동탄트램’, 기술 제안서 심의 적격…10월 중 우선시공분 착공",
+        "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQT0pYNWpiSDZqelc0djdGSVpfWEZERkZUWUJPWTNKOHE3WlJzUTlxNmJIQmtyQ01SS2JrdlJXOS1jU3oxNmFILWFjZy1JYzAyLTVYSF9mODlZUDBHSmZLbTJpRDFvNDB3M2pYZEM2V0NQdUVhcm1ZamFpTWx4VkV1Ri1jLS11UQ?oc=5",
+        "source": "서울Pn",
+        "time": "2026-10-08T23:45:47.000Z",
+        "isToday": true
+      },
+      {
+        "title": "화성시, 동탄트램 우선시공분 10월 착공…DL이앤씨 컨소시엄 기술제안 적격 판정",
+        "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBTeGIwWFhZQXljdTk4dzhoQmxiRnpyZXZVdEpYSFN4V0Q5a290UV9LSWc3eFluQzFCTXA3aVpxZW9HM0JPem40aUJhbktWelZRWjdtOEJKR283VUZt?oc=5",
+        "source": "피디언뉴스",
+        "time": "2026-10-08T22:29:31.000Z",
+        "isToday": true
+      },
+      {
+        "title": "[화성 민선 9기 공약 기획③] 철도 15개 사업·동탄트램·순환도로…정명근표 ‘30분 화성’ 속도 낸다",
+        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBBMEJMT1FEd1VCaktJai1JWWJPeUVLcEtXSWV5MWN0QnJZQ3p2MlJXU0pJUzdjUGtDREpjLW5XNk1BbWJzRUdxZDI5cmxsOVpaT2prWnBxNzJ3cXN2VzlIMzlwQ0dyVU9sLWNzZnF3?oc=5",
+        "source": "뉴스타운",
+        "time": "2026-09-13T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "김상균 \"동탄숲 생태터널 안전·동탄트램 추진 함께 검토해야\"",
+        "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1TRlNXN3RyS044N050czI0S1pFblVTQWtQWEV2TFBjU2s2enRMVjNrczY5bHVIWlRtZEZjNG0xUXVTTTJoVzB6V1R5MlQzTEhiRXRZbXVGOG8yYlNvNXRQLUE4YWVQSEktU3c?oc=5",
+        "source": "미디어와이",
+        "time": "2026-09-08T07:00:00.000Z",
+        "isToday": false
+      }
+    ]
   }
 }
