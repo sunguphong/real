@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { execFile } = require("child_process");
 const { fetchSaleAndReal, aggregateByPyeong } = require("./naver");
-const { fetchTramNews } = require("./news");
+const { fetchNews, TOPICS: NEWS_TOPICS } = require("./news");
 
 const ROOT = __dirname;
 const HISTORY_FILE = path.join(ROOT, "history.json");
@@ -384,16 +384,17 @@ function computeChanges(pyeong) {
   return { available: true, todayDate: todayK, prevDate: prevK, pyeong: py, added, sold, relisted, current: todayList, prevList };
 }
 
-// ---------- 동탄트램 최신 기사 (30분 캐시) ----------
-let newsCache = null;
-async function getNews() {
-  if (newsCache && Date.now() - Date.parse(newsCache.fetchedAt) < 30 * 60 * 1000) return newsCache;
-  try { newsCache = await fetchTramNews(); }
+// ---------- 주제별 최신 기사: tram(동탄트램) / gtx(GTX-C 병점역) (30분 캐시) ----------
+const newsCache = {};
+async function getNews(topic = "tram") {
+  const c = newsCache[topic];
+  if (c && Date.now() - Date.parse(c.fetchedAt) < 30 * 60 * 1000) return c;
+  try { newsCache[topic] = await fetchNews(topic); }
   catch (e) {
-    console.log("  [뉴스] 수집 실패:", e.message);
-    if (!newsCache) return { fetchedAt: null, items: [], error: e.message };
+    console.log(`  [뉴스:${topic}] 수집 실패:`, e.message);
+    if (!c) return { fetchedAt: null, items: [], error: e.message };
   }
-  return newsCache;
+  return newsCache[topic];
 }
 
 // ---------- GitHub Pages 게시 (읽기 전용 정적 사이트) ----------
@@ -417,8 +418,8 @@ async function publishPages() {
     const state = buildState();
     const changes = {};
     for (const r of state.rows) changes[r.pyeong] = { complexNo: history.complexNo, ...computeChanges(r.pyeong) };
-    const news = await getNews();
-    writeJson(path.join(DOCS, "data.json"), { generatedAt: new Date().toISOString(), state, changes, news });
+    const [news, newsGtx] = await Promise.all([getNews("tram"), getNews("gtx")]);
+    writeJson(path.join(DOCS, "data.json"), { generatedAt: new Date().toISOString(), state, changes, news, newsGtx });
     for (const f of ["app.js", "style.css"]) fs.copyFileSync(path.join(ROOT, f), path.join(DOCS, f));
     const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8")
       .replace(`<script src="app.js"></script>`, `<script>window.STATIC_MODE = true;</script>
@@ -502,9 +503,11 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, buildState());
   }
 
-  // 동탄트램 최신 기사
+  // 최신 기사 (?topic=tram|gtx)
   if (url === "/api/news" && req.method === "GET") {
-    return send(res, 200, await getNews());
+    const topic = new URL(req.url, "http://x").searchParams.get("topic") || "tram";
+    if (!NEWS_TOPICS[topic]) return send(res, 400, { error: "알 수 없는 뉴스 주제" });
+    return send(res, 200, await getNews(topic));
   }
 
   // GitHub Pages 수동 게시 (로컬에서만)
