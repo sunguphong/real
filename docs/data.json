@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T15:27:02.167Z",
+  "generatedAt": "2026-10-10T12:52:21.751Z",
   "state": {
     "complexNo": "110837",
     "complexName": "동탄역포레너스",
@@ -4633,21 +4633,28 @@
     }
   },
   "news": {
-    "fetchedAt": "2026-10-09T15:27:02.167Z",
+    "fetchedAt": "2026-10-10T12:52:21.751Z",
     "today": "2026-10-10",
     "items": [
       {
-        "title": "화성시 동탄트램 31.55㎞·33개 정거장 건설 본궤도…이달 우선시공 추진",
-        "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9jVUVqLUxXa0pJWUxmM3RZcnk1VWtaX2ZtN2U5VjRISTFISXc0eUJwVl9lXzA2ZEpfLTR3aXRwel9IZGN2TnhjWkh6LWRFbTE3eV94bVU3Z3Y1d2ZQOVlJVzloQ0FpVk5TOFlnSdIBbEFVX3lxTE9jVUVqLUxXa0pJWUxmM3RZcnk1VWtaX2ZtN2U5VjRISTFISXc0eUJwVl9lXzA2ZEpfLTR3aXRwel9IZGN2TnhjWkh6LWRFbTE3eV94bVU3Z3Y1d2ZQOVlJVzloQ0FpVk5TOFlnSQ?oc=5",
-        "source": "필드뉴스",
-        "time": "2026-10-09T07:54:28.000Z",
+        "title": "동탄트램 착공 가시권에 들어왔다",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1NTHhXanZ6UVUtRDFxdDlZWi0xN1ZLeEMzNDAxeXIyTkQ5SFlvWnhaM0ZaazlES0RUVTFXMmZCc3hpaWJaQ2E4LUJ6dDM2Y2ZKVGEtV0tPWW95d0JoTmp2Rk14Vy1yd0RR?oc=5",
+        "source": "중앙신문",
+        "time": "2026-10-09T21:30:00.000Z",
+        "isToday": true
+      },
+      {
+        "title": "화성 동탄트램, 17년 기다림 끝에 첫 삽 눈앞",
+        "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1BNm5hYkc2ZFpiVjdJWlVETXZPc2pMNk1DWWl0V0dET0x5X3RGTGNfekRJV1hzLWN6TExKZUFwTzhKQkY3SWM2TFFTRGxCbnRHVWhGQ2FHOA?oc=5",
+        "source": "KPI뉴스",
+        "time": "2026-10-09T08:15:25.000Z",
         "isToday": false
       },
       {
-        "title": "화성특례시, 동탄트램 기술제안서 심의 적격, 계약절차 돌입",
-        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE41UUhlekRlODlNWm5nV2NLdDBSZ0dHMDVvZWpuTXdlc2tlNEZJRzYtVmNnRmg2bEkzaWJxNmdQTlhaNDkxeWdVZlgwVGw5VllFSU53MXRZMHBZTFpNN2xQNXp1aHptQ3RG?oc=5",
-        "source": "경기남부저널",
-        "time": "2026-10-09T06:04:00.000Z",
+        "title": "화성시 동탄트램 31.55㎞·33개 정거장 건설 본궤도…이달 우선시공 추진",
+        "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBLMlA3ekxaMmxzeTdkUUdhUWxBZlY1NjFnVDRJZFdBWXBzSVhnNG5ybkgtWEVRbVdMdmFCVG5xeDd3dUZicEhzWGthZEQwY3p6TGhPU1lBbHRYVmNrdnM0bFhoYnN5ZUUt0gFsQVVfeXFMT2NVRWotTFdrSklZTGYzdFlyeTVVa1pfZm03ZTlWNEhJMUhJdzR5QnBWX2VfMDZkSl8tNHdpdHB6X0hkY3ZOeGNaSHotZEVtMTd5X3htVTdndjV3ZlA5WUlXOWhDQWlWTlM4WWdJ?oc=5",
+        "source": "필드뉴스",
+        "time": "2026-10-09T04:25:00.000Z",
         "isToday": false
       },
       {
@@ -4659,7 +4666,7 @@
       },
       {
         "title": "31.55㎞ 동탄 트램 첫 삽 가시권…화성시, 10월 우선공사 착수",
-        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9aU0FWZm84ckE2S2x1dld3S25kelc2YUJlMFBhNDNESXBDcEJyQ3VwQ0RSSlAxRmx4SHpnNzk3cDBlNFNqUkVwWERzenhNNENscDl0OUYzb19OQVJxVGE2N1BFZw?oc=5",
+        "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1MMVZobGJrVHR0OElibEFncE1xRE1KdmxybVlBVDZDR1JsZk45aVVaLXhaeDFvcFgtQTNrclRfSVNQY0NWLVpNWkFPRmx0RkVSODhwa0d4UGRGbUIxc1Z2T1BB?oc=5",
         "source": "에너지경제신문",
         "time": "2026-10-09T01:35:07.000Z",
         "isToday": false
@@ -4687,16 +4694,9 @@
       },
       {
         "title": "‘화성 동탄트램’, 기술 제안서 심의 적격…10월 중 우선시공분 착공",
-        "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLXdjOU5TRS01OEtxSGlILWE2bUdKVnZvWk5CcEp5cktMSGVRNGotOURETkVSeEl5ajB1WDlhQVRaLWlNaG9sMXFaamZnZEZydWhhTHpKR0hBR2FTWjA5RDJoWlZqdUVRSWVnSXJrdEZXaEs1Q2NwR3BHUzhkWWhzMjhxSUI?oc=5",
-        "source": "서울신문",
+        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9mSmJ2Tml3aG5FQnlZSlQ3MHZNUFdEY3ZQaGZTMEN2QlFZbVp3WTlXMFZBcTJzQkV6dTlwdExsS19TRVp1OXR4RDZTS2J4R2Q5SjA5cWlCaWxIUWlTUGRudzA5YzlDdw?oc=5",
+        "source": "서울Pn",
         "time": "2026-10-08T23:45:47.000Z",
-        "isToday": false
-      },
-      {
-        "title": "화성시, 동탄트램 우선시공분 10월 착공…DL이앤씨 컨소시엄 기술제안 적격 판정",
-        "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBTeGIwWFhZQXljdTk4dzhoQmxiRnpyZXZVdEpYSFN4V0Q5a290UV9LSWc3eFluQzFCTXA3aVpxZW9HM0JPem40aUJhbktWelZRWjdtOEJKR283VUZt?oc=5",
-        "source": "피디언뉴스",
-        "time": "2026-10-08T22:29:31.000Z",
         "isToday": false
       },
       {
@@ -4704,6 +4704,82 @@
         "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBBMEJMT1FEd1VCaktJai1JWWJPeUVLcEtXSWV5MWN0QnJZQ3p2MlJXU0pJUzdjUGtDREpjLW5XNk1BbWJzRUdxZDI5cmxsOVpaT2prWnBxNzJ3cXN2VzlIMzlwQ0dyVU9sLWNzZnF3?oc=5",
         "source": "뉴스타운",
         "time": "2026-09-13T07:00:00.000Z",
+        "isToday": false
+      }
+    ]
+  },
+  "newsGtx": {
+    "fetchedAt": "2026-10-10T12:51:05.827Z",
+    "today": "2026-10-10",
+    "items": [
+      {
+        "title": "[인터뷰] 윤성진 화성특례시 제1부시장 \"GTX-C 병점역 연장, 투트랙 전략으로 속도와 안정성 모두 잡겠다\"",
+        "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBuSXUzSU8zMnRhUkNhcVBjVzVVOHc0OWdhYnFHM3EyYnlpV3RwYmJYVzZ5RVdWdURUTXU1SzJXQW9TemlXV3FPZHRiY212TzdCeC1XU2hFWnJWaTVCUW50MGlpbw?oc=5",
+        "source": "뉴스팍",
+        "time": "2026-09-23T10:16:11.000Z",
+        "isToday": false
+      },
+      {
+        "title": "경기 남부 신흥 주거벨트의 새 중심축… GTX-C 노선 병점역 연장, 트램 등 예정",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVTJiUlBpLW96MUh6aEtEbXFRa19odmttazFfVzl3aDZEQVV6Rm53Uk4wLURPT053TThfRFk4UEZRaGhtQllGbkQ0YUNRb1VWYlpvei1HWl9WMERDYWNjVXRqSUNmbHphS255V1NNckY2X0lzamM0NnFzSzJLSXc0SlNZVmFXU1ltTnJhRGx3?oc=5",
+        "source": "조선일보",
+        "time": "2026-08-20T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "GTX-C병점연장사업, 화성시 303억 부담 '갑론을박'",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBURDk3SnZiNWlVSUlTN3phd3ZlVVNCRTJLclRpWHllU1RnYTZxcWl5X0ZKb3Y0cFl4ZHlfTFZDdWt3UjFQRWxDbFN0SDg3ek5rTWpObGlZR0l4RVpMUnlIWDlOZno5VjN3ZWJ6YXBadUs?oc=5",
+        "source": "데일리경기신문",
+        "time": "2026-08-19T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "GTX-C 병점 연장 기대 속 ‘역세권 혼잡·지역 불균형’ 우려",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9ZSU1zMW9BWkttT2F1TkhBNW1Sa3dGVUhFdENPc0Q1Y2pIakVqdC1aNGRzY2tuZmwyRW05OTc3Ujkwa25ONlVMcG9OeWRwZks4aU9DclRtWktRUHpOV3paR1AwbmhPQ3ZLMmpheDNpVzA?oc=5",
+        "source": "데일리경기신문",
+        "time": "2026-08-19T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "병점·오산 아파트 거래 증가…GTX-C 연장 추진 주목",
+        "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBOUHY0SFdsSW92UXVTQXhwWVQ2M25kbWVNVDU4Y2ctSWdsUjdhUERhbzlfM3pJMlNfLUE4RVUzVHJ0Y094V0NqT1laVkY4cXNlc004NGloMkFYVWJtUURwYlJzVVh2QQ?oc=5",
+        "source": "비건뉴스",
+        "time": "2026-08-14T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "화성시가 제시한 GTX-C 병점 연장 사업비 303억원, 과연 충분한가?",
+        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9OaXZONXdscnU2Nm5BWkRKOVpJdmtpM09adFl4c21LaThPdXd3Vm85ZG9vcElwNExDOWNheTF5bnNfVW9LWEREczdicHRGRXNON2c3aFZUbS1DSjRNWmx6NW9Tc1FUTEtvcDVfdERn?oc=5",
+        "source": "아시아투데이",
+        "time": "2026-08-13T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "‘GTX-C 병점 연장’...공약 앞섰지만 아직도 진행형",
+        "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFB5cU9xV19NWG1XYzNYUGxyRmk5X0hsRDJKNHFXWDhaREhMVGpqOUpDbGhocnpTeGZma25Rc0F0OHRHd0JDRzlxTVlGaXd2b1hocnRDUGppamtuaGZ6Tlg4c1FiRlMzcFRJZGFaZm5qOUQ?oc=5",
+        "source": "데일리경기신문",
+        "time": "2026-08-13T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "“의욕만으론 부족해”…GTX-C 화성 병점 연장, 과연 가능할까?",
+        "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9fal92NXRZQTBWY1RfN2JwNk1FTWVhbHpRNDFSSWxzd1JDUGZKR196ODhjaDJqRUZOQzNDaFE3SzhQVE5vTjRVMjAya3JIb0p3aHpfemtoMWoxQTUyQy1fYjBvMHBSVmxIX2dKUGJB?oc=5",
+        "source": "아시아투데이",
+        "time": "2026-08-12T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "동탄 26억 시대…비규제 병점·오산으로 번지는 ‘풍선효과’ 촉각",
+        "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE00NjJGaVpIbHhTOFl2TXEwRTRVWHBDZkh5Y3JkdnhRMHVaLVQ4UzhPQjJTYko0VkJuTENTVkUzMDB5R2FQMDVyWnRFSTFHZk1zbThQR2V6M0hRbHB6QWJNWTlCSU54YWtIMmNQS3Bzcw?oc=5",
+        "source": "뉴스퀘스트",
+        "time": "2026-08-10T07:00:00.000Z",
+        "isToday": false
+      },
+      {
+        "title": "GTX-C 착공 본궤도…교통망 기대감에 집값 '들썩'",
+        "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1GZ1E3cE0wWWp1VXZXZ1hCVlRNTVZRbk9HR0tFRDJaMjhmNEVFbjVGUm9tR1VPX0ZJd0tzdldmWlg4ckE5WmpPY2h3NEZOUzZTam40?oc=5",
+        "source": "네이트",
+        "time": "2026-07-12T07:00:00.000Z",
         "isToday": false
       }
     ]
